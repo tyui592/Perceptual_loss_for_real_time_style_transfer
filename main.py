@@ -5,6 +5,16 @@ from train import network_train
 from test import network_test
 
 def build_parser():
+    def str2bool(v):
+        if isinstance(v, bool):
+            return v
+        if v.lower() in ('yes', 'true', 't', 'y', '1'):
+            return True
+        elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+            return False
+        else:
+            raise argparse.ArgumentTypeError('Boolean value expected !!!')
+
     parser = argparse.ArgumentParser()
 
     # cpu, gpu mode selection
@@ -12,7 +22,7 @@ def build_parser():
                     help='cpu : -1, gpu : 0 ~ n ', default=0)
 
     ### arguments for network training
-    parser.add_argument('--train-flag', type=bool,
+    parser.add_argument('--train-flag', type=str2bool,
                     help='Train flag', required=True)
 
     parser.add_argument('--epochs', type=int,
@@ -55,21 +65,21 @@ def build_parser():
                     help='tv loss weight', default=1.0)
 
     parser.add_argument('--train-content-image-path', type=str,
-                    help='Content images path for training', required=True)
+                    help='Content images path for training')
 
     parser.add_argument('--train-style-image-path', type=str,
-                    help='The taget syle image path for training', required=True)
+                    help='The taget syle image path for training')
 
     parser.add_argument('--save-path', type=str,
                     help='Save path', default='./trained_models/')
 
     ### arguments for network evalution
     parser.add_argument('--model-load-path', type=str,
-                    help="Trained model load path", default="./trained_models/transform_network.pth")
+                    help="Trained model load path")
 
     # content image file name
     parser.add_argument('--test-image-path', type=str,
-                    help="test content image path", default='sample_images/content_images/chicago.jpg')
+                    help="test content image path")
 
     # output file name for network test
     parser.add_argument('--output-image-path', type=str,
@@ -81,9 +91,6 @@ if __name__ == '__main__':
     parser = build_parser()
     args= parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.cuda_device_no)
-
-    for key, val in vars(args).items():
-        print(key, val)
 
     if args.train_flag:
         transform_network = network_train(args)
