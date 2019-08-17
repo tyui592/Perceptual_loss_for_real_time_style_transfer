@@ -54,7 +54,7 @@ def network_train(args):
     transform_network = transform_network.to(device)
     
     # Content Data set
-    train_dataset = ImageFolder(args.train_content_image_path, args.train_content_image_list, get_transformer(args.imsize, args.cropsize))
+    train_dataset = ImageFolder(args.train_content_image_path, get_transformer(args.imsize, args.cropsize))
 
     # Loss network
     loss_network = torchvision.models.__dict__[args.vgg_flag](pretrained=True).features.to(device)

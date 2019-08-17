@@ -13,7 +13,7 @@ def build_parser():
 
     ### arguments for network training
     parser.add_argument('--train-flag', type=bool,
-                    help='Train flag', default=False)
+                    help='Train flag', required=True)
 
     parser.add_argument('--epochs', type=int,
                     help='Train epoch', default=2)
@@ -55,13 +55,10 @@ def build_parser():
                     help='tv loss weight', default=1.0)
 
     parser.add_argument('--train-content-image-path', type=str,
-                    help='Content images path for training', default='./coco2014/')
-
-    parser.add_argument('--train-content-image-list', type=str,
-                    help='Content image lists for training', default='./coco2014/train.txt')
+                    help='Content images path for training', required=True)
 
     parser.add_argument('--train-style-image-path', type=str,
-                    help='The taget syle image path for training', default='sample_images/style_images/mondrian.jpg')
+                    help='The taget syle image path for training', required=True)
 
     parser.add_argument('--save-path', type=str,
                     help='Save path', default='./trained_models/')
@@ -77,10 +74,6 @@ def build_parser():
     # output file name for network test
     parser.add_argument('--output-image-path', type=str,
                     help='output image path to save the stylized image', default='result_image/stylized.jpg')
-
-    # style strengths of style images    
-    parser.add_argument('--style-strength', type=float,
-                    help='style strength for interpolation of multiple style images', default=1.0)
     
     return parser
 
