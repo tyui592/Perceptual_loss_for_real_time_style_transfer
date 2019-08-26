@@ -37,9 +37,6 @@ def build_parser():
     parser.add_argument('--check-iter', type=int,
                     help='Number of iteration to check training logs', default=100)
 
-    parser.add_argument('--view-flag', type=bool,
-                    help='View training logs when traing network on jupyter notebook', default=False)
-
     parser.add_argument('--imsize', type=int,
                     help='Size for resize image during training', default=256)
 

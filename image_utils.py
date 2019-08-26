@@ -42,16 +42,6 @@ def get_transformer(imsize=None, cropsize=None):
     transformer.append(normalize)
     return transforms.Compose(transformer)
 
-def imshow(tensor):
-    if tensor.is_cuda:
-        tensor = tensor.cpu()
-    tensor = torchvision.utils.make_grid(tensor)    
-    tensor = denormalize(tensor)
-    image = unloader(tensor.clamp_(0.0, 1.0))
-    plt.imshow(image)
-    plt.show()
-    return None
-
 def imsave(tensor, path):
     if tensor.is_cuda:
         tensor = tensor.cpu()

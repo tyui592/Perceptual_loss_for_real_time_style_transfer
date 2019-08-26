@@ -104,10 +104,6 @@ def network_train(args):
                 # check most recent 100 loss values
                 str_ += '%s: %2.2f,\t'%(key, sum(value[-100:])/100)
             print(str_)
-            if args.view_flag:
-                imshow(contnet_image.cpu())
-                imshow(target_style_image.cpu())
-                imshow(output_image.cpu())
             
             imsave(output_image.cpu(), args.save_path+"training_images.png")
 
