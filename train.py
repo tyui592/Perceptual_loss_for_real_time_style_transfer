@@ -69,49 +69,49 @@ def network_train(args):
 
     # Train
     loss_logs = {'content_loss':[], 'style_loss':[], 'tv_loss':[], 'total_loss':[]}
-    for epoch in range(args.epochs):
+    for iteration in range(args.max_iter):
         train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batchs, shuffle=True)
-        for iteration, image in enumerate(train_dataloader, 1):
-            image = image.to(device)
+        image = next(iter(train_dataloader))
+        image = image.to(device)
 
-            output_image = transform_network(image)
+        output_image = transform_network(image)
 
-            target_content_features = extract_features(loss_network, image, args.content_layers)
-            target_style_features = extract_features(loss_network, target_style_image, args.style_layers) 
+        target_content_features = extract_features(loss_network, image, args.content_layers)
+        target_style_features = extract_features(loss_network, target_style_image, args.style_layers) 
 
-            output_content_features = extract_features(loss_network, output_image, args.content_layers)
-            output_style_features = extract_features(loss_network, output_image, args.style_layers)
+        output_content_features = extract_features(loss_network, output_image, args.content_layers)
+        output_style_features = extract_features(loss_network, output_image, args.style_layers)
 
-            content_loss = calc_Content_Loss(output_content_features, target_content_features)
-            style_loss = calc_Gram_Loss(output_style_features, target_style_features)
-            tv_loss = calc_TV_Loss(output_image)
+        content_loss = calc_Content_Loss(output_content_features, target_content_features)
+        style_loss = calc_Gram_Loss(output_style_features, target_style_features)
+        tv_loss = calc_TV_Loss(output_image)
+        
+        total_loss = content_loss * args.content_weight + style_loss * args.style_weight + tv_loss * args.tv_weight
+
+        loss_logs['content_loss'].append(content_loss.item())
+        loss_logs['style_loss'].append(style_loss.item())
+        loss_logs['tv_loss'].append(tv_loss.item())
+        loss_logs['total_loss'].append(total_loss.item())
+
+        optimizer.zero_grad()
+        total_loss.backward()
+        optimizer.step()
+
+        # print loss logs
+        if iteration % args.check_iter == 0:
+            str_ = '%s: iteration: [%d/%d/],\t'%(time.ctime(), iteration, args.max_iter)
+            for key, value in loss_logs.items():
+                # check most recent 100 loss values
+                str_ += '%s: %2.2f,\t'%(key, sum(value[-100:])/100)
+            print(str_)
+            if args.view_flag:
+                imshow(contnet_image.cpu())
+                imshow(target_style_image.cpu())
+                imshow(output_image.cpu())
             
-            total_loss = content_loss * args.content_weight + style_loss * args.style_weight + tv_loss * args.tv_weight
+            imsave(output_image.cpu(), args.save_path+"training_images.png")
 
-            loss_logs['content_loss'].append(content_loss.item())
-            loss_logs['style_loss'].append(style_loss.item())
-            loss_logs['tv_loss'].append(tv_loss.item())
-            loss_logs['total_loss'].append(total_loss.item())
-
-            optimizer.zero_grad()
-            total_loss.backward()
-            optimizer.step()
-
-            # print loss logs
-            if iteration % args.check_iter == 0:
-                str_ = '%s: epoch:[%d/%d/], iteration: [%d/%d/],\t'%(time.ctime(), epoch, args.epochs, iteration, len(train_dataloader))
-                for key, value in loss_logs.items():
-                    # check most recent 100 loss values
-                    str_ += '%s: %2.2f,\t'%(key, sum(value[-100:])/100)
-                print(str_)
-                if args.view_flag:
-                    imshow(contnet_image.cpu())
-                    imshow(target_style_image.cpu())
-                    imshow(output_image.cpu())
-                
-                imsave(output_image.cpu(), args.save_path+"training_images.png")
-
-                torch.save(transform_network.state_dict(), args.save_path+"transform_network.pth")
+            torch.save(transform_network.state_dict(), args.save_path+"transform_network.pth")
 
     # save train results
     torch.save(loss_logs, args.save_path+"loss_logs.pth")
