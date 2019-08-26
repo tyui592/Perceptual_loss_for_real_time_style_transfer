@@ -25,8 +25,8 @@ def build_parser():
     parser.add_argument('--train-flag', type=str2bool,
                     help='Train flag', required=True)
 
-    parser.add_argument('--epochs', type=int,
-                    help='Train epoch', default=2)
+    parser.add_argument('--max-iter', type=int,
+                    help='Train iterations', default=15000)
 
     parser.add_argument('--batchs', type=int,
                     help='Batch size', default=8)
@@ -44,7 +44,7 @@ def build_parser():
                     help='Size for resize image during training', default=256)
 
     parser.add_argument('--cropsize', type=int,
-                    help='Size for crop image durning training', default=240)
+                    help='Size for crop image durning training', default=None)
 
     parser.add_argument('--vgg-flag', type=str,
                     help='VGG flag for calculating losses', default='vgg16')
@@ -73,15 +73,12 @@ def build_parser():
     parser.add_argument('--save-path', type=str,
                     help='Save path', default='./trained_models/')
 
-    ### arguments for network evalution
     parser.add_argument('--model-load-path', type=str,
                     help="Trained model load path")
 
-    # content image file name
     parser.add_argument('--test-image-path', type=str,
                     help="test content image path")
 
-    # output file name for network test
     parser.add_argument('--output-image-path', type=str,
                     help='output image path to save the stylized image', default='result_image/stylized.jpg')
     
