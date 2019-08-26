@@ -1,4 +1,3 @@
-Pytorcc implementation of "Perceptual Losses for Real-Time Style Transfer and Super-Resolution [Johnson et al. ECCV 2016]"
 Pytorch implementation of "Perceptl Losses for Real-Time Style Transfer and Super-Resolution
 ---
 
