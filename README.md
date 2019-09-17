@@ -1,12 +1,7 @@
 Pytorch implementation of "Perceptl Losses for Real-Time Style Transfer and Super-Resolution"
 ---
 
-Pytorch implementation of the paper:
-"Perceptual Losses for Real-Time Style Transfer and Super-Resolution"
-
-Justin Johnson, Alexandre Alahi, Li Fei-Fei 
-
-ECCV 2016
+Minseong Kim (tyui592@gmail.com)
 
 Dependencies
 --
