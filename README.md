@@ -21,27 +21,27 @@ Usage
 
 ### Arguments
 
+* `--train-flag`: Flag for train or evaluate transform network
+* `--train-content`: Path of content image dataset (MSCOCO is needed)
+* `--train-style`: Path of a target style image 
+* `--test-content`: Path of a test content image
+* `--model-load-path`: Path of trained transform network to stylize the `--test-content` image
+
 ### Train example script
 
 ```
-python main.py --train-flag True --cuda-device-no 0 --imsize 256 --cropsize 240 --train-content-image-path ./coco2014/ --train-style-image-path sample_images/style_images/mondrian.jpg --save-path trained_models/
+python main.py --train-flag True --cuda-device-no 0 --imsize 256 --cropsize 240 --train-content ./coco2014/ --train-style imgs/style/mondrian.jpg --save-path trained_models/
 ```
 
 ### Test example script
 
 ```
-python main.py --train-flag False --cuda-device-no 0 --imsize 256 --model-load-path trained_models/network.pth --test-image-path sample_images/content_images/chicago.jpg --output-image-path stylized.png
+python main.py --train-flag False --cuda-device-no 0 --imsize 256 --model-load-path trained_models/transform_network.pth --test-content imgs/content/chicago.jpg --output stylized.png
 ```
 
-Example Images
+Results
 --
 
-* Content image: sample_images/content_images/chicago.jpg
-* Style image: sample_images/style_images/mondrian.jpg
 
-![test_result](https://github.com/tyui592/Perceptual_loss_for_real_time_style_transfer/blob/master/sample_images/test_results/chicago_mondrian.png)
+![test_result](https://github.com/tyui592/Perceptual_loss_for_real_time_style_transfer/blob/master/imgs/figure1.png)
 
-* Content image: smaple_images/content_images/chicago.jpg
-* Style image: sample_images/style_images/abstraction.jpg
-
-![test_result2](https://github.com/tyui592/Perceptual_loss_for_real_time_style_transfer/blob/master/sample_images/test_results/chicago_abstraction.png)
