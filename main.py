@@ -17,11 +17,9 @@ def build_parser():
 
     parser = argparse.ArgumentParser()
 
-    # cpu, gpu mode selection
     parser.add_argument('--cuda-device-no', type=int,
-                    help='cpu : -1, gpu : 0 ~ n ', default=0)
+                    help='cpu: -1, gpu: 0 ~ n ', default=0)
 
-    ### arguments for network training
     parser.add_argument('--train-flag', type=str2bool,
                     help='Train flag', required=True)
 
@@ -61,10 +59,10 @@ def build_parser():
     parser.add_argument('--tv-weight', type=float,
                     help='tv loss weight', default=1.0)
 
-    parser.add_argument('--train-content-image-path', type=str,
+    parser.add_argument('--train-content', type=str,
                     help='Content images path for training')
 
-    parser.add_argument('--train-style-image-path', type=str,
+    parser.add_argument('--train-style', type=str,
                     help='The taget syle image path for training')
 
     parser.add_argument('--save-path', type=str,
@@ -73,11 +71,11 @@ def build_parser():
     parser.add_argument('--model-load-path', type=str,
                     help="Trained model load path")
 
-    parser.add_argument('--test-image-path', type=str,
+    parser.add_argument('--test-content', type=str,
                     help="test content image path")
 
-    parser.add_argument('--output-image-path', type=str,
-                    help='output image path to save the stylized image', default='result_image/stylized.jpg')
+    parser.add_argument('--output', type=str,
+                    help='output image path to save the stylized image', default='stylized.jpg')
     
     return parser
 
