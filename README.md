@@ -1,11 +1,15 @@
-Pytorch implementation of "Perceptl Losses for Real-Time Style Transfer and Super-Resolution"
+Perceptl Losses for Real-Time Style Transfer
 ---
+**Unofficial PyTorch implementation of real-time style transfer**
 
-Minseong Kim (tyui592@gmail.com)
+**Reference**: [Perceptual Losses for Real-Time Style Transfer and Super-Resolution, ECCV2016](https://arxiv.org/abs/1603.08155)
 
-Dependencies
+**Contact**: `Minseong Kim` (tyui592@gmail.com)
+
+Requirements
 --
 * Pytorch (version >= 0.4.0)
+* Pillow
 
 Download
 --
@@ -14,6 +18,8 @@ Download
 
 Usage
 --
+
+### Arguments
 
 ### Train example script
 
