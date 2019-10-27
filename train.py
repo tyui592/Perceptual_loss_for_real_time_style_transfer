@@ -54,7 +54,7 @@ def network_train(args):
     transform_network = transform_network.to(device)
     
     # Content Data set
-    train_dataset = ImageFolder(args.train_content_image_path, get_transformer(args.imsize, args.cropsize))
+    train_dataset = ImageFolder(args.train_content, get_transformer(args.imsize, args.cropsize))
 
     # Loss network
     loss_network = torchvision.models.__dict__[args.vgg_flag](pretrained=True).features.to(device)
@@ -63,7 +63,7 @@ def network_train(args):
     optimizer = torch.optim.Adam(params=transform_network.parameters(), lr=args.lr)
 
     # Target style image
-    target_style_image = imload(args.train_style_image_path, imsize=args.imsize).to(device)
+    target_style_image = imload(args.train_style, imsize=args.imsize).to(device)
     b, c, h, w = target_style_image.size()
     target_style_image = target_style_image.expand(args.batchs, c, h, w)
 
