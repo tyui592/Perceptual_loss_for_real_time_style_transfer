@@ -1,4 +1,4 @@
-Perceptl Losses for Real-Time Style Transfer
+Perceptual Losses for Real-Time Style Transfer
 ---
 **Unofficial PyTorch implementation of real-time style transfer**
 
