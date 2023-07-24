@@ -4,7 +4,6 @@ Perceptual Losses for Real-Time Style Transfer
 
 **Reference**: [Perceptual Losses for Real-Time Style Transfer and Super-Resolution, ECCV2016](https://arxiv.org/abs/1603.08155)
 
-**Contact**: `Minseong Kim` (tyui592@gmail.com)
 
 Requirements
 --
